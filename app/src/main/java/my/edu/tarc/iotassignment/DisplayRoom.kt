@@ -23,7 +23,10 @@ class DisplayRoom : AppCompatActivity() {
     var status : Boolean = true
     lateinit var dialog : Dialog
     lateinit var dataSnapshot : DataSnapshot
-    var availability : Int = 1
+    var a1 : Int = 1
+    var a2 : Int = 1
+    var a3 : Int = 1
+    var a4 : Int = 1
     //internal val intent = Intent(this, Reservation::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,12 +48,12 @@ class DisplayRoom : AppCompatActivity() {
                 roomNo = dataSnapshot.child("roomNo").value.toString()
                 textViewRoom1.text = roomNo
                 status = dataSnapshot.child("status").value.toString().toBoolean()
-                if (status == true) {
+                if (status) {
                     textViewRoom1.setBackgroundResource(R.color.available_colour)
-                    availability = 1
+                    a1 = 1
                 } else {
                     textViewRoom1.setBackgroundResource(R.color.occupied_colour)
-                    availability = 0
+                    a1 = 0
                 }
 
             }
@@ -67,12 +70,12 @@ class DisplayRoom : AppCompatActivity() {
                 roomNo = dataSnapshot.child("roomNo").value.toString()
                 textViewRoom2.text = roomNo
                 status = dataSnapshot.child("status").value.toString().toBoolean()
-                if (status == true) {
+                if (status) {
                     textViewRoom2.setBackgroundResource(R.color.available_colour)
-                    availability = 1
+                    a2 = 1
                 } else {
                     textViewRoom2.setBackgroundResource(R.color.occupied_colour)
-                    availability = 0
+                    a2 = 0
                 }
             }
 
@@ -88,12 +91,12 @@ class DisplayRoom : AppCompatActivity() {
                 roomNo = dataSnapshot.child("roomNo").value.toString()
                 textViewRoom3.text = roomNo
                 status = dataSnapshot.child("status").value.toString().toBoolean()
-                if (status == true) {
+                if (status) {
                     textViewRoom3.setBackgroundResource(R.color.available_colour)
-                    availability = 1
+                    a3 = 1
                 } else {
                     textViewRoom3.setBackgroundResource(R.color.occupied_colour)
-                    availability = 0
+                    a3 = 0
                 }
             }
 
@@ -109,12 +112,12 @@ class DisplayRoom : AppCompatActivity() {
                 roomNo = dataSnapshot.child("roomNo").value.toString()
                 textViewRoom4.text = roomNo
                 status = dataSnapshot.child("status").value.toString().toBoolean()
-                if (status == true) {
+                if (status) {
                     textViewRoom4.setBackgroundResource(R.color.available_colour)
-                    availability = 1
+                    a4 = 1
                 } else {
                     textViewRoom4.setBackgroundResource(R.color.occupied_colour)
-                    availability = 0
+                    a4 = 0
                 }
             }
 
@@ -127,7 +130,7 @@ class DisplayRoom : AppCompatActivity() {
         textViewRoom1.setOnClickListener() {
             //1 = available, 0 = occupied
             val intent = Intent(this, Reservation::class.java)
-            if(availability == 1)
+            if(a1 == 1)
             {
                 startActivity(intent)
             }
@@ -141,7 +144,7 @@ class DisplayRoom : AppCompatActivity() {
         textViewRoom2.setOnClickListener() {
             //1 = available, 0 = occupied
             val intent = Intent(this, Reservation::class.java)
-            if(availability == 1)
+            if(a2 == 1)
             {
                 startActivity(intent)
             }
@@ -155,7 +158,7 @@ class DisplayRoom : AppCompatActivity() {
         textViewRoom3.setOnClickListener() {
             //1 = available, 0 = occupied
             val intent = Intent(this, Reservation::class.java)
-            if(availability == 1)
+            if(a3 == 1)
             {
                 startActivity(intent)
             }
@@ -169,7 +172,7 @@ class DisplayRoom : AppCompatActivity() {
         textViewRoom4.setOnClickListener() {
             //1 = available, 0 = occupied
             val intent = Intent(this, Reservation::class.java)
-            if(availability == 1)
+            if(a4 == 1)
             {
                 startActivity(intent)
             }
