@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var email1 : TextView
     private lateinit var password1 : TextView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         var roomNo : String = "R01"
         var noOfPax : Int = 2
         var status : Boolean = true
+        //true = available, false = occupied
         var database = FirebaseDatabase.getInstance()
         var myRef: DatabaseReference = database.getReference("Room").child("Room1")
         val room1 = Room()
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         //Creating data for room2
         roomNo  = "R02"
-        noOfPax  = 4
+        noOfPax  = 2
         status  = false
         database = FirebaseDatabase.getInstance()
         myRef = database.getReference("Room").child("Room2")
@@ -50,6 +50,30 @@ class MainActivity : AppCompatActivity() {
         room2.setNoOfPax(noOfPax)
         room2.setStatus(status)
         myRef.setValue(room2);
+
+        //Creating data for room3
+        roomNo  = "R03"
+        noOfPax  = 4
+        status  = true
+        database = FirebaseDatabase.getInstance()
+        myRef = database.getReference("Room").child("Room3")
+        val room3 = Room()
+        room3.setRoomNo(roomNo)
+        room3.setNoOfPax(noOfPax)
+        room3.setStatus(status)
+        myRef.setValue(room3);
+
+        //Creating data for room4
+        roomNo  = "R04"
+        noOfPax  = 4
+        status  = false
+        database = FirebaseDatabase.getInstance()
+        myRef = database.getReference("Room").child("Room4")
+        val room4 = Room()
+        room4.setRoomNo(roomNo)
+        room4.setNoOfPax(noOfPax)
+        room4.setStatus(status)
+        myRef.setValue(room4);
 
         //start of login button
         buttonLogin.setOnClickListener() {
@@ -73,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
                                 // Sign in success direct user to reservation page
-                                startActivity(Intent(this, Reservation::class.java))
+                                startActivity(Intent(this, DisplayRoom::class.java))
                             }
                             else {
                                 // If sign in fails, display a message to the user.

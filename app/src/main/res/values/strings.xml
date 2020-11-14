@@ -12,4 +12,7 @@
     <string name="time">Time</string>
     <string name="hint_date">Select A Date</string>
     <string name="hint_time">Select a Time Slot</string>
+    <string name="OccupiedDialogTitle">Oops!</string>
+    <string name="OccupiedDialogText">This room is occupied at this instance. Kindly choose another room.</string>
+    <string name="buttonDiaologOkText">Noted</string>
 </resources>
