@@ -124,6 +124,20 @@ class DisplayRoom : AppCompatActivity() {
         })
 
         //setting onCLickListener to direct user to another page if clicked
+        textViewRoom1.setOnClickListener() {
+            //1 = available, 0 = occupied
+            val intent = Intent(this, Reservation::class.java)
+            if(availability == 1)
+            {
+                startActivity(intent)
+            }
+            else
+            {
+                //displayOccupiedDialog()
+                //startActivity(intent)
+                displayToast()
+            }
+        }
         textViewRoom2.setOnClickListener() {
             //1 = available, 0 = occupied
             val intent = Intent(this, Reservation::class.java)
@@ -131,7 +145,35 @@ class DisplayRoom : AppCompatActivity() {
             {
                 startActivity(intent)
             }
-            else if(availability == 0)
+            else
+            {
+                //displayOccupiedDialog()
+                //startActivity(intent)
+                displayToast()
+            }
+        }
+        textViewRoom3.setOnClickListener() {
+            //1 = available, 0 = occupied
+            val intent = Intent(this, Reservation::class.java)
+            if(availability == 1)
+            {
+                startActivity(intent)
+            }
+            else
+            {
+                //displayOccupiedDialog()
+                //startActivity(intent)
+                displayToast()
+            }
+        }
+        textViewRoom4.setOnClickListener() {
+            //1 = available, 0 = occupied
+            val intent = Intent(this, Reservation::class.java)
+            if(availability == 1)
+            {
+                startActivity(intent)
+            }
+            else
             {
                 //displayOccupiedDialog()
                 //startActivity(intent)

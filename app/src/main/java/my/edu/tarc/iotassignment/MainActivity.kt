@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         //Creating data for room2
         roomNo  = "R02"
         noOfPax  = 2
-        status  = false
+        status  = true
         database = FirebaseDatabase.getInstance()
         myRef = database.getReference("Room").child("Room2")
         val room2 = Room()
