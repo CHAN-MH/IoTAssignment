@@ -6,20 +6,69 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+
 
 class Reservation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
-
+        val database = FirebaseDatabase.getInstance()
 
         //accessingUI element
         val reserveButton: Button = findViewById(R.id.buttonReserve)
         val codeOTP: TextView = findViewById(R.id.code)
+        val textViewRoomNo : TextView = findViewById(R.id.textViewRoomNo)
+        val textViewNoOfPax : TextView = findViewById(R.id.textViewNoOfPax)
         //initialize code variable
         var code:Int = 0 ;
         var pcode:String ="";
+
+
+        var selection: String? = intent.getStringExtra("selection")
+
+
+            val roomNo = database.getReference("Room")
+            roomNo.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (selection == "1")
+                    {
+                        var roomNo:String = dataSnapshot.child("Room1").child("roomNo").getValue().toString()
+                        var noOfPax:String = dataSnapshot.child("Room1").child("noOfPax").getValue().toString()
+                        textViewRoomNo.text = roomNo
+                        textViewNoOfPax.text = noOfPax
+                    }
+                    else if(selection == "2")
+                    {
+                        var roomNo:String = dataSnapshot.child("Room2").child("roomNo").getValue().toString()
+                        var noOfPax:String = dataSnapshot.child("Room2").child("noOfPax").getValue().toString()
+                        textViewRoomNo.text = roomNo
+                        textViewNoOfPax.text = noOfPax
+                    }
+                    else if(selection == "3")
+                    {
+                        var roomNo:String = dataSnapshot.child("Room3").child("roomNo").getValue().toString()
+                        var noOfPax:String = dataSnapshot.child("Room3").child("noOfPax").getValue().toString()
+                        textViewRoomNo.text = roomNo
+                        textViewNoOfPax.text = noOfPax
+                    }
+                    else if(selection == "4")
+                    {
+                        var roomNo:String = dataSnapshot.child("Room4").child("roomNo").getValue().toString()
+                        var noOfPax:String = dataSnapshot.child("Room4").child("noOfPax").getValue().toString()
+                        textViewRoomNo.text = roomNo
+                        textViewNoOfPax.text = noOfPax
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            })
+
+
 
         reserveButton.setOnClickListener {
             //allow user to press once only
@@ -34,7 +83,7 @@ class Reservation : AppCompatActivity() {
             // Write a message to the database
 
             // Write a message to the database
-            val database = FirebaseDatabase.getInstance()
+
             val codePin = database.getReference("DoorPIN")
             codePin.setValue(code.toString())
 

@@ -28,6 +28,7 @@ class DisplayRoom : AppCompatActivity() {
     var a3 : Int = 1
     var a4 : Int = 1
     //internal val intent = Intent(this, Reservation::class.java)
+    var selection : String = "0"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,12 +133,13 @@ class DisplayRoom : AppCompatActivity() {
             val intent = Intent(this, Reservation::class.java)
             if(a1 == 1)
             {
+                selection = "1"
+                intent.putExtra("selection", selection)
                 startActivity(intent)
             }
             else
             {
                 //displayOccupiedDialog()
-                //startActivity(intent)
                 displayToast()
             }
         }
@@ -146,12 +148,14 @@ class DisplayRoom : AppCompatActivity() {
             val intent = Intent(this, Reservation::class.java)
             if(a2 == 1)
             {
+                selection = "2"
+                intent.putExtra("selection", selection)
                 startActivity(intent)
+
             }
             else
             {
                 //displayOccupiedDialog()
-                //startActivity(intent)
                 displayToast()
             }
         }
@@ -160,12 +164,13 @@ class DisplayRoom : AppCompatActivity() {
             val intent = Intent(this, Reservation::class.java)
             if(a3 == 1)
             {
+                selection = "3"
+                intent.putExtra("selection", selection)
                 startActivity(intent)
             }
             else
             {
                 //displayOccupiedDialog()
-                //startActivity(intent)
                 displayToast()
             }
         }
@@ -174,17 +179,21 @@ class DisplayRoom : AppCompatActivity() {
             val intent = Intent(this, Reservation::class.java)
             if(a4 == 1)
             {
+                selection = "4"
+                intent.putExtra("selection", selection)
                 startActivity(intent)
             }
             else
             {
                 //displayOccupiedDialog()
-                //startActivity(intent)
                 displayToast()
             }
         }
 
+
     }//end of onCreate
+
+
 
     fun displayToast() {
         val text = "Room Occupied!"
