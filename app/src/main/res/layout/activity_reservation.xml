@@ -11,6 +11,7 @@
         android:layout_height="65dp"
         android:layout_marginBottom="72dp"
         android:text="@string/buttonReserve"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:backgroundTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"

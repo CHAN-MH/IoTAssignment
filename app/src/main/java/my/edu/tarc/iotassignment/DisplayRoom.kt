@@ -202,10 +202,12 @@ class DisplayRoom : AppCompatActivity() {
         val toast = Toast.makeText(applicationContext, text, duration)
         toast.show()
     }
+
 /*
-    private fun displayOccupiedDialog() {
+    //problem
+    fun displayOccupiedDialog() {
         dialog.setContentView(R.layout.dialog_occupied)
-        dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(TRANSPARENT))
+        dialog.getWindow()!!.setBackgroundDrawable(ColorDrawable(TRANSPARENT))
 
          val imageViewOccupied : ImageView = findViewById(R.id.imageViewOccupied)
          val buttonDialogOk : Button = findViewById(R.id.buttonDialogOk)
@@ -213,6 +215,7 @@ class DisplayRoom : AppCompatActivity() {
          buttonDialogOk.setOnClickListener() {
              dialog.dismiss()
          }
+
         dialog.show()
     }
 */
