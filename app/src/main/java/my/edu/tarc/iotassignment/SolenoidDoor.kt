@@ -22,7 +22,7 @@ class SolenoidDoor : AppCompatActivity() {
 
         //retrieving the pass code from firebase
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("code")
+        val myRef = database.getReference("DoorPIN")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 //storing the correct password into code variable
