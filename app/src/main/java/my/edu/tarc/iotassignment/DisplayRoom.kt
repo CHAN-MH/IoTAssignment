@@ -32,11 +32,11 @@ class DisplayRoom : AppCompatActivity() {
 
 
         //secondary firebase : sir firebase
-        val secondary = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
+        val database1 = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
 
         //primary firebase : our firebase
-        val primary: FirebaseDatabase = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com/")
-        val myref: DatabaseReference = primary.getReference("Room")
+        val database2: FirebaseDatabase = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com/")
+        val myref: DatabaseReference = database2.getReference("Room")
 
         //Link UI to program
         val textViewRoom1: TextView = findViewById(R.id.textViewRoom1)

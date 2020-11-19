@@ -21,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //connect to teacher firebase
+        val secondary = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
+        val relay2 = secondary.getReference("PI_03_CONTROL").child("lcdtxt")
+        relay2.setValue("ABCD1234EFGH5678")
+
         //connect to personal database
         auth = FirebaseAuth.getInstance()
 
@@ -61,5 +66,8 @@ class MainActivity : AppCompatActivity() {
         }//end of login button
 
     }
+
+
+
 
 }

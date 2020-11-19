@@ -15,11 +15,11 @@ class Reservation : AppCompatActivity() {
         setContentView(R.layout.activity_reservation)
 
         //secondary firebase : sir firebase
-        val secondary = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
+        val database1 = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
 
         //primary firebase : our firebase
-        val primary: FirebaseDatabase = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com/")
-        val roomNo: DatabaseReference = primary.getReference("Room")
+        val database2: FirebaseDatabase = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com/")
+        val roomRef: DatabaseReference = database2.getReference("Room")
 
         //accessingUI element
         val reserveButton: Button = findViewById(R.id.buttonReserve)
@@ -34,7 +34,7 @@ class Reservation : AppCompatActivity() {
         var selection: String? = intent.getStringExtra("selection")
 
 
-            roomNo.addValueEventListener(object : ValueEventListener {
+            roomRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (selection == "1")
                     {
@@ -86,11 +86,25 @@ class Reservation : AppCompatActivity() {
 
             // Write a message to the database
 
-            val codePin = primary.getReference("DoorPIN")
+            val codePin = database2.getReference("DoorPIN")
             codePin.setValue(code.toString())
 
             //changing message in the button
             reserveButton.text = "SUCCESSFULLY BOOKED"
+
+            if (selection == "1") {
+                roomRef.child("Room1").child("status").setValue("false")
+
+            } else if (selection == "2") {
+                roomRef.child("Room2").child("status").setValue("false")
+
+            } else if (selection == "3") {
+                roomRef.child("Room3").child("status").setValue("false")
+
+            } else if (selection == "4") {
+                roomRef.child("Room4").child("status").setValue("false")
+
+            }
         }
 
         //open the door action
