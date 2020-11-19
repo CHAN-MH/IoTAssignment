@@ -12,13 +12,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
 class DisplayRoom : AppCompatActivity() {
-    var myref = FirebaseDatabase.getInstance().getReference("Room")
     var roomNo : String = ""
     var status : Boolean = true
     lateinit var dialog : Dialog
@@ -33,6 +29,14 @@ class DisplayRoom : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_room)
+
+
+        //secondary firebase : sir firebase
+        val database1 = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
+
+        //primary firebase : our firebase
+        val database2: FirebaseDatabase = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com/")
+        val myref: DatabaseReference = database2.getReference("Room")
 
         //Link UI to program
         val textViewRoom1: TextView = findViewById(R.id.textViewRoom1)

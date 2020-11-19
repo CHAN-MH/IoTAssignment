@@ -1,5 +1,6 @@
 package my.edu.tarc.iotassignment
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -15,6 +16,7 @@ class SolenoidDoor : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_solenoid_door)
+
 
 
         val psw: EditText = findViewById(R.id.password)
@@ -51,6 +53,8 @@ class SolenoidDoor : AppCompatActivity() {
                 if(password == code){
                     //door open
                     Toast.makeText(baseContext, "Door Unlocked!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, DisplayRoom::class.java)
+                    startActivity(intent)
                 }
                 else{
                     psw.error = "Password does not match!";

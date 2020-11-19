@@ -6,17 +6,20 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
 
 class Reservation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
-        val database = FirebaseDatabase.getInstance()
+
+        //secondary firebase : sir firebase
+        val database1 = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
+
+        //primary firebase : our firebase
+        val database2: FirebaseDatabase = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com/")
+        val roomRef: DatabaseReference = database2.getReference("Room")
 
         //accessingUI element
         val reserveButton: Button = findViewById(R.id.buttonReserve)
@@ -26,47 +29,51 @@ class Reservation : AppCompatActivity() {
         //initialize code variable
         var code:Int = 0 ;
         var pcode:String ="";
+        var lcdscr = ""
+        var lcdtxt = ""
+        var lcdbkR = ""
+        var lcdbkG = ""
+        var lcdbkB = ""
 
 
         var selection: String? = intent.getStringExtra("selection")
 
 
-            val roomNo = database.getReference("Room")
-            roomNo.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    if (selection == "1")
-                    {
-                        var roomNo:String = dataSnapshot.child("Room1").child("roomNo").getValue().toString()
-                        var noOfPax:String = dataSnapshot.child("Room1").child("noOfPax").getValue().toString()
-                        textViewRoomNo.text = roomNo
-                        textViewNoOfPax.text = noOfPax
-                    }
-                    else if(selection == "2")
-                    {
-                        var roomNo:String = dataSnapshot.child("Room2").child("roomNo").getValue().toString()
-                        var noOfPax:String = dataSnapshot.child("Room2").child("noOfPax").getValue().toString()
-                        textViewRoomNo.text = roomNo
-                        textViewNoOfPax.text = noOfPax
-                    }
-                    else if(selection == "3")
-                    {
-                        var roomNo:String = dataSnapshot.child("Room3").child("roomNo").getValue().toString()
-                        var noOfPax:String = dataSnapshot.child("Room3").child("noOfPax").getValue().toString()
-                        textViewRoomNo.text = roomNo
-                        textViewNoOfPax.text = noOfPax
-                    }
-                    else if(selection == "4")
-                    {
-                        var roomNo:String = dataSnapshot.child("Room4").child("roomNo").getValue().toString()
-                        var noOfPax:String = dataSnapshot.child("Room4").child("noOfPax").getValue().toString()
-                        textViewRoomNo.text = roomNo
-                        textViewNoOfPax.text = noOfPax
-                    }
+        roomRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (selection == "1")
+                {
+                    var roomNo:String = dataSnapshot.child("Room1").child("roomNo").getValue().toString()
+                    var noOfPax:String = dataSnapshot.child("Room1").child("noOfPax").getValue().toString()
+                    textViewRoomNo.text = roomNo
+                    textViewNoOfPax.text = noOfPax
                 }
-                override fun onCancelled(error: DatabaseError) {
+                else if(selection == "2")
+                {
+                    var roomNo:String = dataSnapshot.child("Room2").child("roomNo").getValue().toString()
+                    var noOfPax:String = dataSnapshot.child("Room2").child("noOfPax").getValue().toString()
+                    textViewRoomNo.text = roomNo
+                    textViewNoOfPax.text = noOfPax
+                }
+                else if(selection == "3")
+                {
+                    var roomNo:String = dataSnapshot.child("Room3").child("roomNo").getValue().toString()
+                    var noOfPax:String = dataSnapshot.child("Room3").child("noOfPax").getValue().toString()
+                    textViewRoomNo.text = roomNo
+                    textViewNoOfPax.text = noOfPax
+                }
+                else if(selection == "4")
+                {
+                    var roomNo:String = dataSnapshot.child("Room4").child("roomNo").getValue().toString()
+                    var noOfPax:String = dataSnapshot.child("Room4").child("noOfPax").getValue().toString()
+                    textViewRoomNo.text = roomNo
+                    textViewNoOfPax.text = noOfPax
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
 
-                }
-            })
+            }
+        })
 
 
 
@@ -79,16 +86,51 @@ class Reservation : AppCompatActivity() {
             pcode = String.format("%06d", code);
             codeOTP.text = "Your room pin is $pcode"
 
-            //the code is then saved to the firebase
-            // Write a message to the database
-
-            // Write a message to the database
-
-            val codePin = database.getReference("DoorPIN")
+            val codePin = database2.getReference("DoorPIN")
             codePin.setValue(code.toString())
 
             //changing message in the button
             reserveButton.text = "SUCCESSFULLY BOOKED"
+
+            //Write to common resources firebase
+            val data1 = database1.getReference("PI_03_CONTROL")
+            //Write to personal firebase
+            val data2 = database2.getReference("PI_03_CONTROL")
+            lcdscr = "1"
+            lcdtxt = "****OCCUPIED****"
+            lcdbkR = "255"
+            lcdbkG = "0"
+            lcdbkB = "0"
+
+            //setting the value at common resources
+            data1.child("lcdscr").setValue(lcdscr)
+            data1.child("lcdtxt").setValue(lcdtxt)
+            data1.child("lcdbkR").setValue(lcdbkR)
+            data1.child("lcdbkG").setValue(lcdbkG)
+            data1.child("lcdbkB").setValue(lcdbkB)
+
+            //for testing purpose
+            //setting the value at personal database
+            data2.child("lcdscr").setValue(lcdscr)
+            data2.child("lcdtxt").setValue(lcdtxt)
+            data2.child("lcdbkR").setValue(lcdbkR)
+            data2.child("lcdbkG").setValue(lcdbkG)
+            data2.child("lcdbkB").setValue(lcdbkB)
+
+            //changing the room status to occupied in firebase
+            if (selection == "1") {
+                roomRef.child("Room1").child("status").setValue("false")
+
+            } else if (selection == "2") {
+                roomRef.child("Room2").child("status").setValue("false")
+
+            } else if (selection == "3") {
+                roomRef.child("Room3").child("status").setValue("false")
+
+            } else if (selection == "4") {
+                roomRef.child("Room4").child("status").setValue("false")
+
+            }
         }
 
         //open the door action
