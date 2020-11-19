@@ -87,7 +87,7 @@ class Reservation : AppCompatActivity() {
             codeOTP.text = "Your room pin is $pcode"
 
             val codePin = database2.getReference("DoorPIN")
-            codePin.setValue(code.toString())
+            codePin.setValue(pcode)
 
             //changing message in the button
             reserveButton.text = "SUCCESSFULLY BOOKED"
