@@ -6,17 +6,20 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
 
 class Reservation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
-        val database = FirebaseDatabase.getInstance()
+
+        //secondary firebase : sir firebase
+        val secondary = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
+
+        //primary firebase : our firebase
+        val primary: FirebaseDatabase = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com/")
+        val roomNo: DatabaseReference = primary.getReference("Room")
 
         //accessingUI element
         val reserveButton: Button = findViewById(R.id.buttonReserve)
@@ -31,7 +34,6 @@ class Reservation : AppCompatActivity() {
         var selection: String? = intent.getStringExtra("selection")
 
 
-            val roomNo = database.getReference("Room")
             roomNo.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (selection == "1")
@@ -84,7 +86,7 @@ class Reservation : AppCompatActivity() {
 
             // Write a message to the database
 
-            val codePin = database.getReference("DoorPIN")
+            val codePin = primary.getReference("DoorPIN")
             codePin.setValue(code.toString())
 
             //changing message in the button

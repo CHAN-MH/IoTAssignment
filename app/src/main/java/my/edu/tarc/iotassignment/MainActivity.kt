@@ -21,66 +21,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //connect to teacher firebase
-        val secondary = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
-        val relay2 = secondary.getReference("PI_03_CONTROL").child("lcdtxt")
-        relay2.setValue("ABCD1234EFGH5678")
-
         //connect to personal database
         auth = FirebaseAuth.getInstance()
 
         val buttonLogin : Button = findViewById(R.id.buttonLogin)
         email1 = findViewById(R.id.editTextEmail)
         password1 = findViewById(R.id.editTextPassword)
-
-        //Creating data for room1
-        var roomNo : String = "R01"
-        var noOfPax : Int = 2
-        var status : Boolean = true
-        //true = available, false = occupied
-        var database = FirebaseDatabase.getInstance()
-        var myRef: DatabaseReference = database.getReference("Room").child("Room1")
-        val room1 = Room()
-        room1.setRoomNo(roomNo)
-        room1.setNoOfPax(noOfPax)
-        room1.setStatus(status)
-        myRef.setValue(room1);
-
-        //Creating data for room2
-        roomNo  = "R02"
-        noOfPax  = 2
-        status  = true
-        database = FirebaseDatabase.getInstance()
-        myRef = database.getReference("Room").child("Room2")
-        val room2 = Room()
-        room2.setRoomNo(roomNo)
-        room2.setNoOfPax(noOfPax)
-        room2.setStatus(status)
-        myRef.setValue(room2);
-
-        //Creating data for room3
-        roomNo  = "R03"
-        noOfPax  = 4
-        status  = true
-        database = FirebaseDatabase.getInstance()
-        myRef = database.getReference("Room").child("Room3")
-        val room3 = Room()
-        room3.setRoomNo(roomNo)
-        room3.setNoOfPax(noOfPax)
-        room3.setStatus(status)
-        myRef.setValue(room3);
-
-        //Creating data for room4
-        roomNo  = "R04"
-        noOfPax  = 4
-        status  = false
-        database = FirebaseDatabase.getInstance()
-        myRef = database.getReference("Room").child("Room4")
-        val room4 = Room()
-        room4.setRoomNo(roomNo)
-        room4.setNoOfPax(noOfPax)
-        room4.setStatus(status)
-        myRef.setValue(room4);
 
         //start of login button
         buttonLogin.setOnClickListener() {
@@ -115,8 +61,5 @@ class MainActivity : AppCompatActivity() {
         }//end of login button
 
     }
-
-
-
 
 }
