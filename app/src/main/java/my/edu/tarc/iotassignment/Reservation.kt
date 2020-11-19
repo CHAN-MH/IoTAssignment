@@ -86,8 +86,27 @@ class Reservation : AppCompatActivity() {
             pcode = String.format("%06d", code);
             codeOTP.text = "Your room pin is $pcode"
 
-            val codePin = database2.getReference("DoorPIN")
-            codePin.setValue(pcode)
+            //check for room selection
+            if(selection == "1"){
+                //room1 is selected, write to room 1 firebase code
+                val codePin = database2.getReference("Room").child("Room1").child("code")
+                codePin.setValue(pcode)
+            }
+            else if(selection == "2"){
+                //room1 is selected, write to room 1 firebase code
+                val codePin = database2.getReference("Room").child("Room2").child("code")
+                codePin.setValue(pcode)
+            }
+            else if(selection == "3"){
+                //room1 is selected, write to room 1 firebase code
+                val codePin = database2.getReference("Room").child("Room3").child("code")
+                codePin.setValue(pcode)
+            }
+            else{
+                //room1 is selected, write to room 1 firebase code
+                val codePin = database2.getReference("Room").child("Room4").child("code")
+                codePin.setValue(pcode)
+            }
 
             //changing message in the button
             reserveButton.text = "SUCCESSFULLY BOOKED"
