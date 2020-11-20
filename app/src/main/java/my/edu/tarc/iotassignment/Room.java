@@ -5,6 +5,15 @@ public class Room {
     private String roomNo;
     private int noOfPax;
     private boolean status;
+    private String roomPin;
+
+    public String getRoomPin() {
+        return roomPin;
+    }
+
+    public void setRoomPin(String roomPin) {
+        this.roomPin = roomPin;
+    }
 
     public String getRoomNo() {
         return roomNo;

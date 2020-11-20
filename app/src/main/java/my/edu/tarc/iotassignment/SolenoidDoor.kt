@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -17,21 +18,44 @@ class SolenoidDoor : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_solenoid_door)
 
+        //passing the user choice through activity
+        var selection: String? = intent.getStringExtra("selection")
 
-
+        //Accessing UI
         val psw: EditText = findViewById(R.id.password)
         val buttonProceed: Button = findViewById(R.id.buttonProceed)
 
-        //retrieving the pass code from firebase
+        //accessing the database
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("DoorPIN")
+        val myRef = database.getReference("Room")
+
+        //retrieving the pass code from firebase
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //storing the correct password into code variable
-                code = dataSnapshot.value.toString();
+                //check for retrieving which room
+                when (selection) {
+                    "1" -> {
+                        //storing the correct password into code variable
+                        code = dataSnapshot.child("Room1").child("code").value.toString();
+                    }
+                    "2" -> {
+                        //storing the correct password into code variable
+                        code = dataSnapshot.child("Room2").child("code").value.toString();
+                    }
+                    "3" -> {
+                        //storing the correct password into code variable
+                        code = dataSnapshot.child("Room3").child("code").value.toString();
+                    }
+                    "4" -> {
+                        //storing the correct password into code variable
+                        code = dataSnapshot.child("Room4").child("code").value.toString();
+                    }
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
+                val textView:TextView = findViewById(R.id.textView)
+                textView.text = "Sign In Function Failed"
 
             }
         })
