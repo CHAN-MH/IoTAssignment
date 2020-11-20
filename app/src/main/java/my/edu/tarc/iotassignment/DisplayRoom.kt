@@ -1,11 +1,13 @@
 package my.edu.tarc.iotassignment
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Color.TRANSPARENT
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -65,6 +67,7 @@ class DisplayRoom : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {
                 // Actions when failed to read value
+                textViewRoom1.text = "Read Failed"
             }
         })
 
@@ -86,6 +89,7 @@ class DisplayRoom : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {
                 // Actions when failed to read value
+                textViewRoom2.text = "Read Failed"
             }
         })
 
@@ -107,6 +111,7 @@ class DisplayRoom : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {
                 // Actions when failed to read value
+                textViewRoom3.text = "Read Failed"
             }
         })
 
@@ -128,6 +133,7 @@ class DisplayRoom : AppCompatActivity() {
 
             override fun onCancelled(error: DatabaseError) {
                 // Actions when failed to read value
+                textViewRoom4.text = "Read Failed"
             }
         })
 
@@ -143,7 +149,7 @@ class DisplayRoom : AppCompatActivity() {
             }
             else
             {
-                //displayOccupiedDialog()
+                displayOccupiedDialog()
                 displayToast()
             }
         }
@@ -159,7 +165,7 @@ class DisplayRoom : AppCompatActivity() {
             }
             else
             {
-                //displayOccupiedDialog()
+                displayOccupiedDialog()
                 displayToast()
             }
         }
@@ -174,7 +180,7 @@ class DisplayRoom : AppCompatActivity() {
             }
             else
             {
-                //displayOccupiedDialog()
+                displayOccupiedDialog()
                 displayToast()
             }
         }
@@ -189,17 +195,13 @@ class DisplayRoom : AppCompatActivity() {
             }
             else
             {
-                //displayOccupiedDialog()
+                displayOccupiedDialog()
                 displayToast()
             }
         }
-
-
     }//end of onCreate
 
-
-
-    fun displayToast() {
+    private fun displayToast() {
         val text = "Room Occupied!"
         val duration = Toast.LENGTH_SHORT
 
@@ -207,21 +209,27 @@ class DisplayRoom : AppCompatActivity() {
         toast.show()
     }
 
-/*
-    //problem
-    fun displayOccupiedDialog() {
-        dialog.setContentView(R.layout.dialog_occupied)
-        dialog.getWindow()!!.setBackgroundDrawable(ColorDrawable(TRANSPARENT))
+    private fun displayOccupiedDialog() {
+        // create an alert builder
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Room Occupied")
 
-         val imageViewOccupied : ImageView = findViewById(R.id.imageViewOccupied)
-         val buttonDialogOk : Button = findViewById(R.id.buttonDialogOk)
+        // set the custom layout
+        val customLayout: View = layoutInflater.inflate(R.layout.dialog_occupied, null);
+        builder.setView(customLayout);
+        builder.setMessage("Please proceed to other rooms available")
 
-         buttonDialogOk.setOnClickListener() {
-             dialog.dismiss()
-         }
+        builder
+                .setPositiveButton(
+                        "Noted"
+                ) { dialog, _ -> // When the user click yes button
+                    // then app will close
+                    dialog.cancel()
+                }
 
+        // create and show the alert dialog
+        val dialog: AlertDialog = builder.create()
         dialog.show()
     }
-*/
 }
 

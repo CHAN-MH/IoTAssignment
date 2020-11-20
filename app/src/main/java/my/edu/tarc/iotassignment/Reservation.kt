@@ -1,6 +1,5 @@
 package my.edu.tarc.iotassignment
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -8,16 +7,15 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 
-
 class Reservation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
 
-        //secondary firebase : sir firebase
+        //database1 = common resources firebase
         val database1 = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
 
-        //primary firebase : our firebase
+        //database2 = personal firebase
         val database2: FirebaseDatabase = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com/")
         val roomRef: DatabaseReference = database2.getReference("Room")
 
@@ -29,15 +27,26 @@ class Reservation : AppCompatActivity() {
         //initialize code variable
         var code:Int = 0 ;
         var pcode:String ="";
+        /*
         var lcdscr = ""
         var lcdtxt = ""
         var lcdbkR = ""
         var lcdbkG = ""
         var lcdbkB = ""
+*/
+        //Write to common resources firebase
+        //later test can run anot
+        val data1 = database1.getReference("bait2123-202010-03")//.child("PI_03_CONTROL")
+        //Write to personal firebase
+        val data2 = database2.getReference("bait2123-202010-03").child("PI_03_CONTROL")
+        var lcdscr = "1"
+        var lcdtxt = "****OCCUPIED****"
+        var lcdbkR = "255"
+        var lcdbkG = "0"
+        var lcdbkB = "0"
 
-
+        //passing user's room selection through intent
         var selection: String? = intent.getStringExtra("selection")
-
 
         roomRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -71,7 +80,9 @@ class Reservation : AppCompatActivity() {
                 }
             }
             override fun onCancelled(error: DatabaseError) {
-
+                //Actions when failed to read data
+                textViewRoomNo.text = "Read Failed"
+                textViewNoOfPax.text = "Read Failed"
             }
         })
 
@@ -91,16 +102,6 @@ class Reservation : AppCompatActivity() {
 
             //changing message in the button
             reserveButton.text = "SUCCESSFULLY BOOKED"
-
-            //Write to common resources firebase
-            val data1 = database1.getReference("PI_03_CONTROL")
-            //Write to personal firebase
-            val data2 = database2.getReference("PI_03_CONTROL")
-            lcdscr = "1"
-            lcdtxt = "****OCCUPIED****"
-            lcdbkR = "255"
-            lcdbkG = "0"
-            lcdbkB = "0"
 
             //setting the value at common resources
             data1.child("lcdscr").setValue(lcdscr)
