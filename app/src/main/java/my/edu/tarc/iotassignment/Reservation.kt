@@ -2,6 +2,7 @@ package my.edu.tarc.iotassignment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +14,7 @@ class Reservation : AppCompatActivity() {
         setContentView(R.layout.activity_reservation)
 
         //database1 = common resources firebase
-        val database1 = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
+        val database1: FirebaseDatabase = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
 
         //database2 = personal firebase
         val database2: FirebaseDatabase = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com/")
@@ -25,19 +26,19 @@ class Reservation : AppCompatActivity() {
         val textViewRoomNo : TextView = findViewById(R.id.textViewRoomNo)
         val textViewNoOfPax : TextView = findViewById(R.id.textViewNoOfPax)
         //initialize code variable
-        var code:Int = 0 ;
-        var pcode:String ="";
-
-        //Write to common resources firebase
-        //later test can run anot
-        val data1 = database1.getReference("bait2123-202010-03").child("PI_03_CONTROL1")
-        //Write to personal firebase
-        val data2 = database2.getReference("bait2123-202010-03").child("PI_03_CONTROL")
+        var code:Int = 0
+        var pcode:String =""
         var lcdscr = "1"
         var lcdtxt = "****OCCUPIED****"
         var lcdbkR = "255"
         var lcdbkG = "0"
         var lcdbkB = "0"
+
+        //Write to common resources firebase
+        val data1 = database1.getReference("bait2123-202010-03").child("PI_03_CONTROL")
+        //Write to personal firebase
+        val data2 = database2.getReference("bait2123-202010-03").child("PI_03_CONTROL")
+
 
         //passing user's room selection through intent
         var selection: String? = intent.getStringExtra("selection")
@@ -116,12 +117,14 @@ class Reservation : AppCompatActivity() {
             //changing message in the button
             reserveButton.text = "SUCCESSFULLY BOOKED"
 
+
             //setting the value at common resources
             data1.child("lcdscr").setValue(lcdscr)
             data1.child("lcdtxt").setValue(lcdtxt)
             data1.child("lcdbkR").setValue(lcdbkR)
             data1.child("lcdbkG").setValue(lcdbkG)
             data1.child("lcdbkB").setValue(lcdbkB)
+            Log.i("Successful","Successful")
 
             //for testing purpose
             //setting the value at personal database
