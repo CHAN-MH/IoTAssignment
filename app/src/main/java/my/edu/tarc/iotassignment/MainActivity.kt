@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
                 loginStatus = "false"
             }
             if(loginStatus == "true")
-            {
-                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+            {startActivity(Intent(this, DisplayRoom::class.java))
+               /* auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
                                 // Sign in success direct user to reservation page
                                 startActivity(Intent(this, DisplayRoom::class.java))
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                                 // If sign in fails, display a message to the user.
                                 Toast.makeText(baseContext, "Login failed. Please try again", Toast.LENGTH_SHORT).show()
                             }
-                        }
+                        }*/
             }
         }//end of login button
 

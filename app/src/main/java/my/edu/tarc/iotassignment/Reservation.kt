@@ -8,15 +8,21 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 
 class Reservation : AppCompatActivity() {
+
+    //database1 = common resources firebase
+    val database1 = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
+    //database2 = personal firebase
+    val database2: FirebaseDatabase = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com/")
+
+    //Write to common resources firebase
+    val data1 = database1.getReference("PI_03_CONTROL")
+    //Write to personal firebase
+    val data2 = database2.getReference("bait2123-202010-03").child("PI_03_CONTROL")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
 
-        //database1 = common resources firebase
-        val database1 = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com/")
-
-        //database2 = personal firebase
-        val database2: FirebaseDatabase = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com/")
         val roomRef: DatabaseReference = database2.getReference("Room")
 
         //accessingUI element
@@ -28,16 +34,6 @@ class Reservation : AppCompatActivity() {
         var code:Int = 0 ;
         var pcode:String ="";
 
-        //Write to common resources firebase
-        //later test can run anot
-        val data1 = database1.getReference("bait2123-202010-03").child("PI_03_CONTROL1")
-        //Write to personal firebase
-        val data2 = database2.getReference("bait2123-202010-03").child("PI_03_CONTROL")
-        var lcdscr = "1"
-        var lcdtxt = "****OCCUPIED****"
-        var lcdbkR = "255"
-        var lcdbkG = "0"
-        var lcdbkB = "0"
 
         //passing user's room selection through intent
         var selection: String? = intent.getStringExtra("selection")
@@ -81,8 +77,27 @@ class Reservation : AppCompatActivity() {
         })
 
 
-
         reserveButton.setOnClickListener {
+            var lcdscr = "1"
+            var lcdtxt = "****OCCUPIED****"
+            var lcdbkR = "255"
+            var lcdbkG = "0"
+            var lcdbkB = "0"
+
+            //setting the value at common resources
+            data1.child("lcdscr").setValue(lcdscr)
+            data1.child("lcdtxt").setValue(lcdtxt)
+            data1.child("lcdbkR").setValue(lcdbkR)
+            data1.child("lcdbkG").setValue(lcdbkG)
+            data1.child("lcdbkB").setValue(lcdbkB)
+
+            //for testing purpose
+            //setting the value at personal database
+            data2.child("lcdscr").setValue(lcdscr)
+            data2.child("lcdtxt").setValue(lcdtxt)
+            data2.child("lcdbkR").setValue(lcdbkR)
+            data2.child("lcdbkG").setValue(lcdbkG)
+            data2.child("lcdbkB").setValue(lcdbkB)
             //allow user to press once only
             reserveButton.isEnabled = false;
 
@@ -116,20 +131,7 @@ class Reservation : AppCompatActivity() {
             //changing message in the button
             reserveButton.text = "SUCCESSFULLY BOOKED"
 
-            //setting the value at common resources
-            data1.child("lcdscr").setValue(lcdscr)
-            data1.child("lcdtxt").setValue(lcdtxt)
-            data1.child("lcdbkR").setValue(lcdbkR)
-            data1.child("lcdbkG").setValue(lcdbkG)
-            data1.child("lcdbkB").setValue(lcdbkB)
 
-            //for testing purpose
-            //setting the value at personal database
-            data2.child("lcdscr").setValue(lcdscr)
-            data2.child("lcdtxt").setValue(lcdtxt)
-            data2.child("lcdbkR").setValue(lcdbkR)
-            data2.child("lcdbkG").setValue(lcdbkG)
-            data2.child("lcdbkB").setValue(lcdbkB)
 
             //changing the room status to occupied in firebase
             if (selection == "1") {
@@ -152,8 +154,5 @@ class Reservation : AppCompatActivity() {
         door.setOnClickListener {
             startActivity(Intent(this, SolenoidDoor::class.java))
         }
-
-
-
     }
 }
