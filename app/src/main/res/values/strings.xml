@@ -13,4 +13,5 @@
     <string name="hint_date">Select A Date</string>
     <string name="hint_time">Select a Time Slot</string>
     <string name="OccupiedDialogTitle">Oops!</string>
+    <string name="timeLeft">Time Left</string>
 </resources>

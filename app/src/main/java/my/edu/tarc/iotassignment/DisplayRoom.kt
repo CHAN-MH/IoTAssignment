@@ -149,7 +149,7 @@ class DisplayRoom : AppCompatActivity() {
             }
             else
             {
-                displayOccupiedDialog()
+                //displayOccupiedDialog()
                 displayToast()
             }
         }
@@ -165,7 +165,7 @@ class DisplayRoom : AppCompatActivity() {
             }
             else
             {
-                displayOccupiedDialog()
+                //displayOccupiedDialog()
                 displayToast()
             }
         }
@@ -180,7 +180,7 @@ class DisplayRoom : AppCompatActivity() {
             }
             else
             {
-                displayOccupiedDialog()
+                //displayOccupiedDialog()
                 displayToast()
             }
         }
@@ -195,7 +195,7 @@ class DisplayRoom : AppCompatActivity() {
             }
             else
             {
-                displayOccupiedDialog()
+                //displayOccupiedDialog()
                 displayToast()
             }
         }
@@ -209,6 +209,7 @@ class DisplayRoom : AppCompatActivity() {
         toast.show()
     }
 
+    /*
     private fun displayOccupiedDialog() {
         // create an alert builder
         val builder = AlertDialog.Builder(this)
@@ -231,5 +232,6 @@ class DisplayRoom : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
+    */
 }
 

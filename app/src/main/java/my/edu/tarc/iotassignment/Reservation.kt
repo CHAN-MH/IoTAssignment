@@ -27,16 +27,10 @@ class Reservation : AppCompatActivity() {
         //initialize code variable
         var code:Int = 0 ;
         var pcode:String ="";
-        /*
-        var lcdscr = ""
-        var lcdtxt = ""
-        var lcdbkR = ""
-        var lcdbkG = ""
-        var lcdbkB = ""
-*/
+
         //Write to common resources firebase
         //later test can run anot
-        val data1 = database1.getReference("bait2123-202010-03")//.child("PI_03_CONTROL")
+        val data1 = database1.getReference("bait2123-202010-03").child("PI_03_CONTROL1")
         //Write to personal firebase
         val data2 = database2.getReference("bait2123-202010-03").child("PI_03_CONTROL")
         var lcdscr = "1"
