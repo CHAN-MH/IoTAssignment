@@ -28,6 +28,7 @@ class Reservation : AppCompatActivity() {
         var code:Int = 0 ;
         var pcode:String ="";
 
+
         //Write to common resources firebase
         //later test can run anot
         val data1 = database1.getReference("bait2123-202010-03").child("PI_03_CONTROL1")
@@ -48,29 +49,49 @@ class Reservation : AppCompatActivity() {
                 {
                     var roomNo:String = dataSnapshot.child("Room1").child("roomNo").getValue().toString()
                     var noOfPax:String = dataSnapshot.child("Room1").child("noOfPax").getValue().toString()
+                    var room = dataSnapshot.child("Room1").child("status").value.toString().toBoolean()
                     textViewRoomNo.text = roomNo
                     textViewNoOfPax.text = noOfPax
+
+                    if(!room){
+                        reserveButton.isEnabled = false;
+                    }
                 }
                 else if(selection == "2")
                 {
                     var roomNo:String = dataSnapshot.child("Room2").child("roomNo").getValue().toString()
                     var noOfPax:String = dataSnapshot.child("Room2").child("noOfPax").getValue().toString()
+                    var room = dataSnapshot.child("Room2").child("status").value.toString().toBoolean()
                     textViewRoomNo.text = roomNo
                     textViewNoOfPax.text = noOfPax
+
+                    if(!room){
+                        reserveButton.isEnabled = false;
+                    }
                 }
                 else if(selection == "3")
                 {
                     var roomNo:String = dataSnapshot.child("Room3").child("roomNo").getValue().toString()
                     var noOfPax:String = dataSnapshot.child("Room3").child("noOfPax").getValue().toString()
+                    var room = dataSnapshot.child("Room3").child("status").value.toString().toBoolean()
                     textViewRoomNo.text = roomNo
                     textViewNoOfPax.text = noOfPax
+
+                    if(!room){
+                        reserveButton.isEnabled = false;
+                    }
                 }
                 else if(selection == "4")
                 {
                     var roomNo:String = dataSnapshot.child("Room4").child("roomNo").getValue().toString()
                     var noOfPax:String = dataSnapshot.child("Room4").child("noOfPax").getValue().toString()
+                    var room = dataSnapshot.child("Room4").child("status").value.toString().toBoolean()
                     textViewRoomNo.text = roomNo
                     textViewNoOfPax.text = noOfPax
+
+                    if(!room){
+                        reserveButton.isEnabled = false;
+                    }
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -79,8 +100,6 @@ class Reservation : AppCompatActivity() {
                 textViewNoOfPax.text = "Read Failed"
             }
         })
-
-
 
         reserveButton.setOnClickListener {
             //allow user to press once only
@@ -145,6 +164,8 @@ class Reservation : AppCompatActivity() {
                 roomRef.child("Room4").child("status").setValue("false")
 
             }
+
+
         }
 
         //open the door action
